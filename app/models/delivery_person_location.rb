@@ -1,0 +1,2 @@
+class DeliveryPersonLocation < ApplicationRecord
+end

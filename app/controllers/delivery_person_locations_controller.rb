@@ -1,0 +1,2 @@
+class DeliveryPersonLocationsController < ApplicationController
+end

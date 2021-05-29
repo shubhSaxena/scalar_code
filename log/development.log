@@ -1,0 +1,1064 @@
+  [1m[35m (579.4ms)[0m  [1m[35mCREATE DATABASE "scalar_development" ENCODING = 'utf8'[0m
+  [1m[35m (474.2ms)[0m  [1m[35mCREATE DATABASE "scalar_test" ENCODING = 'utf8'[0m
+Started GET "/" for ::1 at 2021-05-29 01:36:10 +0530
+Processing by Rails::WelcomeController#index as HTML
+  Rendering /Users/furlenco/.rvm/gems/ruby-2.6.3/gems/railties-6.1.3.2/lib/rails/templates/rails/welcome/index.html.erb
+  Rendered /Users/furlenco/.rvm/gems/ruby-2.6.3/gems/railties-6.1.3.2/lib/rails/templates/rails/welcome/index.html.erb (Duration: 12.1ms | Allocations: 520)
+Completed 200 OK in 33ms (Views: 18.3ms | ActiveRecord: 0.0ms | Allocations: 4325)
+
+
+  [1m[35m (65.6ms)[0m  [1m[35mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL PRIMARY KEY)[0m
+  [1m[35m (13.1ms)[0m  [1m[35mCREATE TABLE "ar_internal_metadata" ("key" character varying NOT NULL PRIMARY KEY, "value" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (1.2ms)[0m  [1m[34mSELECT pg_try_advisory_lock(7533621916592244795)[0m
+  [1m[35m (31.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Migrating to CreateUsers (20210529073611)
+  [1m[36mTRANSACTION (0.3ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (22.1ms)[0m  [1m[35mCREATE TABLE "users" ("id" bigserial primary key, "name" character varying NOT NULL, "email" character varying NOT NULL, "password" character varying NOT NULL, "phone" character varying NOT NULL, "type" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (1.5ms)[0m  [1m[35mCREATE INDEX "index_users_on_email" ON "users" ("email")[0m
+  [1m[35m (6.3ms)[0m  [1m[35mCREATE INDEX "index_users_on_password" ON "users" ("password")[0m
+  [1m[35m (2.0ms)[0m  [1m[35mCREATE INDEX "index_users_on_type" ON "users" ("type")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.6ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20210529073611"]]
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateAddresses (20210529073631)
+  [1m[36mTRANSACTION (5.6ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (9.8ms)[0m  [1m[35mCREATE TABLE "addresses" ("id" bigserial primary key, "users_id" bigint, "address" character varying, "location" character varying, "active" boolean, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (3.3ms)[0m  [1m[35mCREATE INDEX "index_addresses_on_users_id" ON "addresses" ("users_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.9ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20210529073631"]]
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateDeliveryPeople (20210529073644)
+  [1m[36mTRANSACTION (5.2ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (22.2ms)[0m  [1m[35mCREATE TABLE "delivery_people" ("id" bigserial primary key, "users_id" bigint, "license" character varying, "vehicle_no" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (2.1ms)[0m  [1m[35mCREATE INDEX "index_delivery_people_on_users_id" ON "delivery_people" ("users_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (1.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20210529073644"]]
+  [1m[36mTRANSACTION (6.1ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateDeliveryPersonLocations (20210529073653)
+  [1m[36mTRANSACTION (3.9ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (14.5ms)[0m  [1m[35mCREATE TABLE "delivery_person_locations" ("id" bigserial primary key, "delivery_peoples_id" bigint, "location" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (1.7ms)[0m  [1m[35mCREATE INDEX "index_delivery_person_locations_on_delivery_peoples_id" ON "delivery_person_locations" ("delivery_peoples_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20210529073653"]]
+  [1m[36mTRANSACTION (1.2ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateShopOwners (20210529073705)
+  [1m[36mTRANSACTION (0.9ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (14.5ms)[0m  [1m[35mCREATE TABLE "shop_owners" ("id" bigserial primary key, "users_id" bigint, "registration_number" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (4.3ms)[0m  [1m[35mCREATE INDEX "index_shop_owners_on_users_id" ON "shop_owners" ("users_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (1.1ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20210529073705"]]
+  [1m[36mTRANSACTION (1.6ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateShops (20210529073716)
+  [1m[36mTRANSACTION (4.7ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (5.9ms)[0m  [1m[35mCREATE TABLE "shops" ("id" bigserial primary key, "shop_owners_id" bigint, "name" character varying, "location" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (2.6ms)[0m  [1m[35mCREATE INDEX "index_shops_on_shop_owners_id" ON "shops" ("shop_owners_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20210529073716"]]
+  [1m[36mTRANSACTION (3.0ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateShopItems (20210529073725)
+  [1m[36mTRANSACTION (1.6ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (3.8ms)[0m  [1m[35mCREATE TABLE "shop_items" ("id" bigserial primary key, "shops_id" bigint, "items_id" bigint, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (5.2ms)[0m  [1m[35mCREATE INDEX "index_shop_items_on_shops_id" ON "shop_items" ("shops_id")[0m
+  [1m[35m (5.4ms)[0m  [1m[35mCREATE INDEX "index_shop_items_on_items_id" ON "shop_items" ("items_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.8ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20210529073725"]]
+  [1m[36mTRANSACTION (1.6ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateItems (20210529073734)
+  [1m[36mTRANSACTION (0.5ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (26.5ms)[0m  [1m[35mCREATE TABLE "items" ("id" bigserial primary key, "product_category" character varying, "price" float NOT NULL, "quantity" integer DEFAULT 0 NOT NULL, "sku_details" character varying, "barcode" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[36mActiveRecord::SchemaMigration Create (1.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20210529073734"]]
+  [1m[36mTRANSACTION (0.8ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateOrders (20210529073743)
+  [1m[36mTRANSACTION (1.7ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (9.6ms)[0m  [1m[35mCREATE TABLE "orders" ("id" bigserial primary key, "users_id" bigint, "delivery_peoples_id" bigint, "shops_id" bigint, "carts_id" bigint, "status" character varying, "price" float, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (3.7ms)[0m  [1m[35mCREATE INDEX "index_orders_on_users_id" ON "orders" ("users_id")[0m
+  [1m[35m (1.2ms)[0m  [1m[35mCREATE INDEX "index_orders_on_delivery_peoples_id" ON "orders" ("delivery_peoples_id")[0m
+  [1m[35m (13.6ms)[0m  [1m[35mCREATE INDEX "index_orders_on_shops_id" ON "orders" ("shops_id")[0m
+  [1m[35m (2.3ms)[0m  [1m[35mCREATE INDEX "index_orders_on_carts_id" ON "orders" ("carts_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20210529073743"]]
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateCarts (20210529073756)
+  [1m[36mTRANSACTION (2.6ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (32.3ms)[0m  [1m[35mCREATE TABLE "carts" ("id" bigserial primary key, "users_id" bigint, "shops_id" bigint, "total_price" float, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (12.2ms)[0m  [1m[35mCREATE INDEX "index_carts_on_users_id" ON "carts" ("users_id")[0m
+  [1m[35m (4.4ms)[0m  [1m[35mCREATE INDEX "index_carts_on_shops_id" ON "carts" ("shops_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.5ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20210529073756"]]
+  [1m[36mTRANSACTION (6.1ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateCartItems (20210529073806)
+  [1m[36mTRANSACTION (0.4ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (6.8ms)[0m  [1m[35mCREATE TABLE "cart_items" ("id" bigserial primary key, "carts_id" bigint, "shop_items_id" bigint, "quantity" integer DEFAULT 0 NOT NULL, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (1.8ms)[0m  [1m[35mCREATE INDEX "index_cart_items_on_carts_id" ON "cart_items" ("carts_id")[0m
+  [1m[35m (2.3ms)[0m  [1m[35mCREATE INDEX "index_cart_items_on_shop_items_id" ON "cart_items" ("shop_items_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.4ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20210529073806"]]
+  [1m[36mTRANSACTION (0.7ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreateRatings (20210529073819)
+  [1m[36mTRANSACTION (1.5ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (14.4ms)[0m  [1m[35mCREATE TABLE "ratings" ("id" bigserial primary key, "rating_type" character varying, "rating_id" bigint, "orders_id" bigint, "rating" integer, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (5.3ms)[0m  [1m[35mCREATE INDEX "index_ratings_on_rating_type" ON "ratings" ("rating_type")[0m
+  [1m[35m (9.7ms)[0m  [1m[35mCREATE INDEX "index_ratings_on_rating_id" ON "ratings" ("rating_id")[0m
+  [1m[35m (7.0ms)[0m  [1m[35mCREATE INDEX "index_ratings_on_orders_id" ON "ratings" ("orders_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (0.3ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20210529073819"]]
+  [1m[36mTRANSACTION (6.3ms)[0m  [1m[35mCOMMIT[0m
+Migrating to CreatePayments (20210529073828)
+  [1m[36mTRANSACTION (3.1ms)[0m  [1m[35mBEGIN[0m
+  [1m[35m (15.7ms)[0m  [1m[35mCREATE TABLE "payments" ("id" bigserial primary key, "orders_id" bigint, "payment_link" character varying, "status" character varying, "payment_type" character varying, "created_at" timestamp(6) NOT NULL, "updated_at" timestamp(6) NOT NULL)[0m
+  [1m[35m (18.3ms)[0m  [1m[35mCREATE INDEX "index_payments_on_orders_id" ON "payments" ("orders_id")[0m
+  [1m[36mActiveRecord::SchemaMigration Create (7.2ms)[0m  [1m[32mINSERT INTO "schema_migrations" ("version") VALUES ($1) RETURNING "version"[0m  [["version", "20210529073828"]]
+  [1m[36mTRANSACTION (10.1ms)[0m  [1m[35mCOMMIT[0m
+  [1m[36mActiveRecord::InternalMetadata Load (1.1ms)[0m  [1m[34mSELECT "ar_internal_metadata".* FROM "ar_internal_metadata" WHERE "ar_internal_metadata"."key" = $1 LIMIT $2[0m  [["key", "environment"], ["LIMIT", 1]]
+  [1m[36mTRANSACTION (0.6ms)[0m  [1m[35mBEGIN[0m
+  [1m[36mActiveRecord::InternalMetadata Create (80.2ms)[0m  [1m[32mINSERT INTO "ar_internal_metadata" ("key", "value", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "key"[0m  [["key", "environment"], ["value", "development"], ["created_at", "2021-05-29 07:57:40.618377"], ["updated_at", "2021-05-29 07:57:40.618377"]]
+  [1m[36mTRANSACTION (10.3ms)[0m  [1m[35mCOMMIT[0m
+  [1m[35m (6.2ms)[0m  [1m[34mSELECT pg_advisory_unlock(7533621916592244795)[0m
+  [1m[35m (2.3ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Started GET "/users" for ::1 at 2021-05-29 13:39:58 +0530
+  [1m[35m (2.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+  
+AbstractController::ActionNotFound (The action 'index' could not be found for UsersController):
+  
+actionpack (6.1.3.2) lib/abstract_controller/base.rb:160:in `process'
+actionview (6.1.3.2) lib/action_view/rendering.rb:39:in `process'
+actionpack (6.1.3.2) lib/action_controller/metal.rb:190:in `dispatch'
+actionpack (6.1.3.2) lib/action_controller/metal.rb:254:in `dispatch'
+actionpack (6.1.3.2) lib/action_dispatch/routing/route_set.rb:50:in `dispatch'
+actionpack (6.1.3.2) lib/action_dispatch/routing/route_set.rb:33:in `serve'
+actionpack (6.1.3.2) lib/action_dispatch/journey/router.rb:50:in `block in serve'
+actionpack (6.1.3.2) lib/action_dispatch/journey/router.rb:32:in `each'
+actionpack (6.1.3.2) lib/action_dispatch/journey/router.rb:32:in `serve'
+actionpack (6.1.3.2) lib/action_dispatch/routing/route_set.rb:842:in `call'
+rack (2.2.3) lib/rack/tempfile_reaper.rb:15:in `call'
+rack (2.2.3) lib/rack/etag.rb:27:in `call'
+rack (2.2.3) lib/rack/conditional_get.rb:27:in `call'
+rack (2.2.3) lib/rack/head.rb:12:in `call'
+actionpack (6.1.3.2) lib/action_dispatch/http/permissions_policy.rb:22:in `call'
+actionpack (6.1.3.2) lib/action_dispatch/http/content_security_policy.rb:18:in `call'
+rack (2.2.3) lib/rack/session/abstract/id.rb:266:in `context'
+rack (2.2.3) lib/rack/session/abstract/id.rb:260:in `call'
+actionpack (6.1.3.2) lib/action_dispatch/middleware/cookies.rb:689:in `call'
+activerecord (6.1.3.2) lib/active_record/migration.rb:601:in `call'
+actionpack (6.1.3.2) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
+activesupport (6.1.3.2) lib/active_support/callbacks.rb:98:in `run_callbacks'
+actionpack (6.1.3.2) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (6.1.3.2) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.1.3.2) lib/action_dispatch/middleware/actionable_exceptions.rb:18:in `call'
+actionpack (6.1.3.2) lib/action_dispatch/middleware/debug_exceptions.rb:29:in `call'
+web-console (4.1.0) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.1.0) lib/web_console/middleware.rb:28:in `block in call'
+web-console (4.1.0) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.1.0) lib/web_console/middleware.rb:17:in `call'
+actionpack (6.1.3.2) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.1.3.2) lib/rails/rack/logger.rb:37:in `call_app'
+railties (6.1.3.2) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.1.3.2) lib/active_support/tagged_logging.rb:99:in `block in tagged'
+activesupport (6.1.3.2) lib/active_support/tagged_logging.rb:37:in `tagged'
+activesupport (6.1.3.2) lib/active_support/tagged_logging.rb:99:in `tagged'
+railties (6.1.3.2) lib/rails/rack/logger.rb:26:in `call'
+sprockets-rails (3.2.2) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (6.1.3.2) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.1.3.2) lib/action_dispatch/middleware/request_id.rb:26:in `call'
+rack (2.2.3) lib/rack/method_override.rb:24:in `call'
+rack (2.2.3) lib/rack/runtime.rb:22:in `call'
+activesupport (6.1.3.2) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.1.3.2) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.1.3.2) lib/action_dispatch/middleware/static.rb:24:in `call'
+rack (2.2.3) lib/rack/sendfile.rb:110:in `call'
+actionpack (6.1.3.2) lib/action_dispatch/middleware/host_authorization.rb:98:in `call'
+rack-mini-profiler (2.3.2) lib/mini_profiler/profiler.rb:384:in `call'
+webpacker (5.4.0) lib/webpacker/dev_server_proxy.rb:25:in `perform_request'
+rack-proxy (0.7.0) lib/rack/proxy.rb:63:in `call'
+railties (6.1.3.2) lib/rails/engine.rb:539:in `call'
+puma (5.3.2) lib/puma/configuration.rb:249:in `call'
+puma (5.3.2) lib/puma/request.rb:77:in `block in handle_request'
+puma (5.3.2) lib/puma/thread_pool.rb:338:in `with_force_shutdown'
+puma (5.3.2) lib/puma/request.rb:76:in `handle_request'
+puma (5.3.2) lib/puma/server.rb:438:in `process_client'
+puma (5.3.2) lib/puma/thread_pool.rb:145:in `block in spawn_thread'
+Started POST "/users" for ::1 at 2021-05-29 13:40:11 +0530
+Processing by UsersController#create as */*
+  Parameters: {"email"=>"test@qwe.qwe", "phone"=>"8399184711", "name"=>"test", "password"=>"[FILTERED]", "type"=>"customer", "user"=>{"name"=>"test", "email"=>"test@qwe.qwe", "password"=>"[FILTERED]", "phone"=>"8399184711", "type"=>"customer"}}
+Can't verify CSRF token authenticity.
+Completed 422 Unprocessable Entity in 1ms (ActiveRecord: 53.2ms | Allocations: 517)
+
+
+  
+ActionController::InvalidAuthenticityToken (ActionController::InvalidAuthenticityToken):
+  
+actionpack (6.1.3.2) lib/action_controller/metal/request_forgery_protection.rb:211:in `handle_unverified_request'
+actionpack (6.1.3.2) lib/action_controller/metal/request_forgery_protection.rb:243:in `handle_unverified_request'
+actionpack (6.1.3.2) lib/action_controller/metal/request_forgery_protection.rb:238:in `verify_authenticity_token'
+activesupport (6.1.3.2) lib/active_support/callbacks.rb:427:in `block in make_lambda'
+activesupport (6.1.3.2) lib/active_support/callbacks.rb:198:in `block (2 levels) in halting'
+actionpack (6.1.3.2) lib/abstract_controller/callbacks.rb:34:in `block (2 levels) in <module:Callbacks>'
+activesupport (6.1.3.2) lib/active_support/callbacks.rb:199:in `block in halting'
+activesupport (6.1.3.2) lib/active_support/callbacks.rb:512:in `block in invoke_before'
+activesupport (6.1.3.2) lib/active_support/callbacks.rb:512:in `each'
+activesupport (6.1.3.2) lib/active_support/callbacks.rb:512:in `invoke_before'
+activesupport (6.1.3.2) lib/active_support/callbacks.rb:115:in `block in run_callbacks'
+activesupport (6.1.3.2) lib/active_support/callbacks.rb:137:in `run_callbacks'
+actionpack (6.1.3.2) lib/abstract_controller/callbacks.rb:41:in `process_action'
+actionpack (6.1.3.2) lib/action_controller/metal/rescue.rb:22:in `process_action'
+actionpack (6.1.3.2) lib/action_controller/metal/instrumentation.rb:34:in `block in process_action'
+activesupport (6.1.3.2) lib/active_support/notifications.rb:203:in `block in instrument'
+activesupport (6.1.3.2) lib/active_support/notifications/instrumenter.rb:24:in `instrument'
+activesupport (6.1.3.2) lib/active_support/notifications.rb:203:in `instrument'
+actionpack (6.1.3.2) lib/action_controller/metal/instrumentation.rb:33:in `process_action'
+actionpack (6.1.3.2) lib/action_controller/metal/params_wrapper.rb:249:in `process_action'
+activerecord (6.1.3.2) lib/active_record/railties/controller_runtime.rb:27:in `process_action'
+actionpack (6.1.3.2) lib/abstract_controller/base.rb:165:in `process'
+actionview (6.1.3.2) lib/action_view/rendering.rb:39:in `process'
+actionpack (6.1.3.2) lib/action_controller/metal.rb:190:in `dispatch'
+actionpack (6.1.3.2) lib/action_controller/metal.rb:254:in `dispatch'
+actionpack (6.1.3.2) lib/action_dispatch/routing/route_set.rb:50:in `dispatch'
+actionpack (6.1.3.2) lib/action_dispatch/routing/route_set.rb:33:in `serve'
+actionpack (6.1.3.2) lib/action_dispatch/journey/router.rb:50:in `block in serve'
+actionpack (6.1.3.2) lib/action_dispatch/journey/router.rb:32:in `each'
+actionpack (6.1.3.2) lib/action_dispatch/journey/router.rb:32:in `serve'
+actionpack (6.1.3.2) lib/action_dispatch/routing/route_set.rb:842:in `call'
+rack (2.2.3) lib/rack/tempfile_reaper.rb:15:in `call'
+rack (2.2.3) lib/rack/etag.rb:27:in `call'
+rack (2.2.3) lib/rack/conditional_get.rb:40:in `call'
+rack (2.2.3) lib/rack/head.rb:12:in `call'
+actionpack (6.1.3.2) lib/action_dispatch/http/permissions_policy.rb:22:in `call'
+actionpack (6.1.3.2) lib/action_dispatch/http/content_security_policy.rb:18:in `call'
+rack (2.2.3) lib/rack/session/abstract/id.rb:266:in `context'
+rack (2.2.3) lib/rack/session/abstract/id.rb:260:in `call'
+actionpack (6.1.3.2) lib/action_dispatch/middleware/cookies.rb:689:in `call'
+activerecord (6.1.3.2) lib/active_record/migration.rb:601:in `call'
+actionpack (6.1.3.2) lib/action_dispatch/middleware/callbacks.rb:27:in `block in call'
+activesupport (6.1.3.2) lib/active_support/callbacks.rb:98:in `run_callbacks'
+actionpack (6.1.3.2) lib/action_dispatch/middleware/callbacks.rb:26:in `call'
+actionpack (6.1.3.2) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.1.3.2) lib/action_dispatch/middleware/actionable_exceptions.rb:18:in `call'
+actionpack (6.1.3.2) lib/action_dispatch/middleware/debug_exceptions.rb:29:in `call'
+web-console (4.1.0) lib/web_console/middleware.rb:132:in `call_app'
+web-console (4.1.0) lib/web_console/middleware.rb:28:in `block in call'
+web-console (4.1.0) lib/web_console/middleware.rb:17:in `catch'
+web-console (4.1.0) lib/web_console/middleware.rb:17:in `call'
+actionpack (6.1.3.2) lib/action_dispatch/middleware/show_exceptions.rb:33:in `call'
+railties (6.1.3.2) lib/rails/rack/logger.rb:37:in `call_app'
+railties (6.1.3.2) lib/rails/rack/logger.rb:26:in `block in call'
+activesupport (6.1.3.2) lib/active_support/tagged_logging.rb:99:in `block in tagged'
+activesupport (6.1.3.2) lib/active_support/tagged_logging.rb:37:in `tagged'
+activesupport (6.1.3.2) lib/active_support/tagged_logging.rb:99:in `tagged'
+railties (6.1.3.2) lib/rails/rack/logger.rb:26:in `call'
+sprockets-rails (3.2.2) lib/sprockets/rails/quiet_assets.rb:13:in `call'
+actionpack (6.1.3.2) lib/action_dispatch/middleware/remote_ip.rb:81:in `call'
+actionpack (6.1.3.2) lib/action_dispatch/middleware/request_id.rb:26:in `call'
+rack (2.2.3) lib/rack/method_override.rb:24:in `call'
+rack (2.2.3) lib/rack/runtime.rb:22:in `call'
+activesupport (6.1.3.2) lib/active_support/cache/strategy/local_cache_middleware.rb:29:in `call'
+actionpack (6.1.3.2) lib/action_dispatch/middleware/executor.rb:14:in `call'
+actionpack (6.1.3.2) lib/action_dispatch/middleware/static.rb:24:in `call'
+rack (2.2.3) lib/rack/sendfile.rb:110:in `call'
+actionpack (6.1.3.2) lib/action_dispatch/middleware/host_authorization.rb:98:in `call'
+rack-mini-profiler (2.3.2) lib/mini_profiler/profiler.rb:384:in `call'
+webpacker (5.4.0) lib/webpacker/dev_server_proxy.rb:25:in `perform_request'
+rack-proxy (0.7.0) lib/rack/proxy.rb:63:in `call'
+railties (6.1.3.2) lib/rails/engine.rb:539:in `call'
+puma (5.3.2) lib/puma/configuration.rb:249:in `call'
+puma (5.3.2) lib/puma/request.rb:77:in `block in handle_request'
+puma (5.3.2) lib/puma/thread_pool.rb:338:in `with_force_shutdown'
+puma (5.3.2) lib/puma/request.rb:76:in `handle_request'
+puma (5.3.2) lib/puma/server.rb:438:in `process_client'
+puma (5.3.2) lib/puma/thread_pool.rb:145:in `block in spawn_thread'
+Started POST "/users" for ::1 at 2021-05-29 13:40:41 +0530
+Processing by UsersController#create as */*
+  Parameters: {"email"=>"test@qwe.qwe", "phone"=>"8399184711", "name"=>"test", "password"=>"[FILTERED]", "type"=>"customer", "user"=>{"name"=>"test", "email"=>"test@qwe.qwe", "password"=>"[FILTERED]", "phone"=>"8399184711", "type"=>"customer"}}
+Can't verify CSRF token authenticity.
+Completed 400 Bad Request in 31ms (ActiveRecord: 626.8ms | Allocations: 1624)
+
+
+  
+ActionController::ParameterMissing (param is missing or the value is empty: users):
+  
+app/controllers/users_controller.rb:16:in `user_params'
+app/controllers/users_controller.rb:4:in `create'
+Started POST "/users" for ::1 at 2021-05-29 13:41:06 +0530
+Processing by UsersController#create as */*
+  Parameters: {"email"=>"test@qwe.qwe", "phone"=>"8399184711", "name"=>"test", "password"=>"[FILTERED]", "type"=>"customer", "user"=>{"name"=>"test", "email"=>"test@qwe.qwe", "password"=>"[FILTERED]", "phone"=>"8399184711", "type"=>"customer"}}
+Can't verify CSRF token authenticity.
+Completed 500 Internal Server Error in 5ms (ActiveRecord: 18.0ms | Allocations: 606)
+
+
+  
+ArgumentError (wrong number of arguments (given 5, expected 0)):
+  
+app/controllers/users_controller.rb:16:in `user_params'
+app/controllers/users_controller.rb:4:in `create'
+Started POST "/users" for ::1 at 2021-05-29 13:42:25 +0530
+  [1m[35m (4.6ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by UsersController#create as */*
+  Parameters: {"email"=>"test@qwe.qwe", "phone"=>"8399184711", "name"=>"test", "password"=>"[FILTERED]", "type"=>"customer", "user"=>{"name"=>"test", "email"=>"test@qwe.qwe", "password"=>"[FILTERED]", "phone"=>"8399184711", "type"=>"customer"}}
+Can't verify CSRF token authenticity.
+Completed 500 Internal Server Error in 156ms (ActiveRecord: 9.5ms | Allocations: 1685)
+
+
+  
+ArgumentError (wrong number of arguments (given 5, expected 0)):
+  
+app/controllers/users_controller.rb:15:in `user_params'
+app/controllers/users_controller.rb:4:in `create'
+Started POST "/users" for ::1 at 2021-05-29 13:42:42 +0530
+Processing by UsersController#create as */*
+  Parameters: {"email"=>"test@qwe.qwe", "phone"=>"8399184711", "name"=>"test", "password"=>"[FILTERED]", "type"=>"customer", "user"=>{"name"=>"test", "email"=>"test@qwe.qwe", "password"=>"[FILTERED]", "phone"=>"8399184711", "type"=>"customer"}}
+Can't verify CSRF token authenticity.
+Completed 500 Internal Server Error in 2ms (ActiveRecord: 15.4ms | Allocations: 617)
+
+
+  
+ArgumentError (wrong number of arguments (given 5, expected 0)):
+  
+app/controllers/users_controller.rb:15:in `user_params'
+app/controllers/users_controller.rb:4:in `create'
+Started POST "/users" for ::1 at 2021-05-29 13:44:43 +0530
+Processing by UsersController#create as */*
+  Parameters: {"email"=>"test@qwe.qwe", "phone"=>"8399184711", "name"=>"test", "password"=>"[FILTERED]", "type"=>"customer", "user"=>{"name"=>"test", "email"=>"test@qwe.qwe", "password"=>"[FILTERED]", "phone"=>"8399184711", "type"=>"customer"}}
+Can't verify CSRF token authenticity.
+Completed 500 Internal Server Error in 1ms (ActiveRecord: 103.2ms | Allocations: 571)
+
+
+  
+ArgumentError (wrong number of arguments (given 5, expected 0)):
+  
+app/controllers/users_controller.rb:20:in `user_params'
+app/controllers/users_controller.rb:4:in `create'
+Started POST "/users" for ::1 at 2021-05-29 13:44:59 +0530
+Processing by UsersController#create as */*
+  Parameters: {"email"=>"test@qwe.qwe", "phone"=>"8399184711", "name"=>"test", "password"=>"[FILTERED]", "type"=>"customer", "user"=>{"name"=>"test", "email"=>"test@qwe.qwe", "password"=>"[FILTERED]", "phone"=>"8399184711", "type"=>"customer"}}
+Can't verify CSRF token authenticity.
+Completed 500 Internal Server Error in 9ms (ActiveRecord: 5.1ms | Allocations: 1034)
+
+
+  
+ActiveRecord::SubclassNotFound (The single-table inheritance mechanism failed to locate the subclass: 'customer'. This error is raised because the column 'type' is reserved for storing the class in case of inheritance. Please rename this column if you didn't intend it to be used for storing the inheritance class or overwrite User.inheritance_column to use another column for that information.):
+  
+app/controllers/users_controller.rb:5:in `create'
+Started POST "/users" for ::1 at 2021-05-29 13:45:30 +0530
+Processing by UsersController#create as */*
+  Parameters: {"email"=>"test@qwe.qwe", "phone"=>"8399184711", "name"=>"test", "password"=>"[FILTERED]", "type"=>"customer", "user"=>{"name"=>"test", "email"=>"test@qwe.qwe", "password"=>"[FILTERED]", "phone"=>"8399184711", "type"=>"customer"}}
+Can't verify CSRF token authenticity.
+Completed 500 Internal Server Error in 5ms (ActiveRecord: 28.3ms | Allocations: 988)
+
+
+  
+ActiveRecord::SubclassNotFound (The single-table inheritance mechanism failed to locate the subclass: 'customer'. This error is raised because the column 'type' is reserved for storing the class in case of inheritance. Please rename this column if you didn't intend it to be used for storing the inheritance class or overwrite User.inheritance_column to use another column for that information.):
+  
+app/controllers/users_controller.rb:5:in `create'
+Started POST "/users" for ::1 at 2021-05-29 13:46:10 +0530
+  [1m[35m (9.7ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by UsersController#create as */*
+  Parameters: {"email"=>"test@qwe.qwe", "phone"=>"8399184711", "name"=>"test", "password"=>"[FILTERED]", "type"=>"customer", "user"=>{"name"=>"test", "email"=>"test@qwe.qwe", "password"=>"[FILTERED]", "phone"=>"8399184711", "type"=>"customer"}}
+Can't verify CSRF token authenticity.
+Completed 500 Internal Server Error in 89ms (ActiveRecord: 9.4ms | Allocations: 2113)
+
+
+  
+ActiveRecord::SubclassNotFound (The single-table inheritance mechanism failed to locate the subclass: 'customer'. This error is raised because the column 'type' is reserved for storing the class in case of inheritance. Please rename this column if you didn't intend it to be used for storing the inheritance class or overwrite User.inheritance_column to use another column for that information.):
+  
+app/controllers/users_controller.rb:5:in `create'
+Started POST "/users" for ::1 at 2021-05-29 13:47:52 +0530
+Processing by UsersController#create as */*
+  Parameters: {"email"=>"test@qwe.qwe", "phone"=>"8399184711", "name"=>"test", "password"=>"[FILTERED]", "type"=>"customer", "user"=>{"name"=>"test", "email"=>"test@qwe.qwe", "password"=>"[FILTERED]", "phone"=>"8399184711", "type"=>"customer"}}
+Can't verify CSRF token authenticity.
+Completed 500 Internal Server Error in 6ms (ActiveRecord: 36.4ms | Allocations: 1041)
+
+
+  
+ActiveRecord::SubclassNotFound (The single-table inheritance mechanism failed to locate the subclass: 'customer'. This error is raised because the column 'type' is reserved for storing the class in case of inheritance. Please rename this column if you didn't intend it to be used for storing the inheritance class or overwrite User.inheritance_column to use another column for that information.):
+  
+app/controllers/users_controller.rb:5:in `create'
+Started POST "/users" for ::1 at 2021-05-29 13:50:03 +0530
+Processing by UsersController#create as */*
+  Parameters: {"email"=>"test@qwe.qwe", "phone"=>"8399184711", "name"=>"test", "password"=>"[FILTERED]", "type"=>"Customer", "user"=>{"name"=>"test", "email"=>"test@qwe.qwe", "password"=>"[FILTERED]", "phone"=>"8399184711", "type"=>"Customer"}}
+Can't verify CSRF token authenticity.
+  [1m[36mTRANSACTION (162.6ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/users_controller.rb:6:in `create'
+  [1m[36mUser Exists? (61.4ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "test@qwe.qwe"], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:6:in `create'
+  [1m[36mUser Exists? (27.9ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."phone" = $1 LIMIT $2[0m  [["phone", "8399184711"], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:6:in `create'
+  [1m[36mCustomer Create (76.5ms)[0m  [1m[32mINSERT INTO "users" ("name", "email", "password", "phone", "type", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING "id"[0m  [["name", "test"], ["email", "test@qwe.qwe"], ["password", "test"], ["phone", "8399184711"], ["type", "Customer"], ["created_at", "2021-05-29 08:20:05.829125"], ["updated_at", "2021-05-29 08:20:05.829125"]]
+  ↳ app/controllers/users_controller.rb:6:in `create'
+  [1m[36mTRANSACTION (3.3ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/controllers/users_controller.rb:6:in `create'
+Completed 201 Created in 933ms (Views: 3.1ms | ActiveRecord: 859.1ms | Allocations: 13543)
+
+
+Started POST "/users" for ::1 at 2021-05-29 13:50:28 +0530
+Processing by UsersController#create as */*
+  Parameters: {"email"=>"test@qwe.qwe", "phone"=>"8399184711", "name"=>"test", "password"=>"[FILTERED]", "type"=>"Customer", "user"=>{"name"=>"test", "email"=>"test@qwe.qwe", "password"=>"[FILTERED]", "phone"=>"8399184711", "type"=>"Customer"}}
+Can't verify CSRF token authenticity.
+  [1m[36mTRANSACTION (12.5ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/users_controller.rb:6:in `create'
+  [1m[36mUser Exists? (6.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "test@qwe.qwe"], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:6:in `create'
+  [1m[36mUser Exists? (2.8ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."phone" = $1 LIMIT $2[0m  [["phone", "8399184711"], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:6:in `create'
+  [1m[36mTRANSACTION (9.9ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/users_controller.rb:6:in `create'
+Completed 422 Unprocessable Entity in 146ms (ActiveRecord: 31.5ms | Allocations: 9666)
+
+
+  
+ActiveRecord::RecordInvalid (Validation failed: Email has already been taken, Phone has already been taken):
+  
+app/controllers/users_controller.rb:6:in `create'
+Started POST "/users" for ::1 at 2021-05-29 13:50:54 +0530
+Processing by UsersController#create as */*
+  Parameters: {"email"=>"test@qwe.qwe", "phone"=>"8399184711", "name"=>"test", "password"=>"[FILTERED]", "type"=>"Customer", "user"=>{"name"=>"test", "email"=>"test@qwe.qwe", "password"=>"[FILTERED]", "phone"=>"8399184711", "type"=>"Customer"}}
+Can't verify CSRF token authenticity.
+  [1m[36mTRANSACTION (14.1ms)[0m  [1m[35mBEGIN[0m
+  ↳ (byebug):1:in `create'
+  [1m[36mUser Exists? (3.7ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "test@qwe.qwe"], ["LIMIT", 1]]
+  ↳ (byebug):1:in `create'
+  [1m[36mUser Exists? (23.0ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."phone" = $1 LIMIT $2[0m  [["phone", "8399184711"], ["LIMIT", 1]]
+  ↳ (byebug):1:in `create'
+  [1m[36mTRANSACTION (4.8ms)[0m  [1m[31mROLLBACK[0m
+  ↳ (byebug):1:in `create'
+  [1m[36mTRANSACTION (36.6ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/controllers/users_controller.rb:7:in `create'
+  [1m[36mUser Exists? (16.8ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "test@qwe.qwe"], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:7:in `create'
+  [1m[36mUser Exists? (82.6ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."phone" = $1 LIMIT $2[0m  [["phone", "8399184711"], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:7:in `create'
+  [1m[36mTRANSACTION (261.2ms)[0m  [1m[31mROLLBACK[0m
+  ↳ app/controllers/users_controller.rb:7:in `create'
+Completed 422 Unprocessable Entity in 102766ms (ActiveRecord: 486.5ms | Allocations: 82574)
+
+
+  
+ActiveRecord::RecordInvalid (Validation failed: Email has already been taken, Phone has already been taken):
+  
+app/controllers/users_controller.rb:7:in `create'
+Started POST "/users" for ::1 at 2021-05-29 13:53:18 +0530
+Processing by UsersController#create as */*
+  Parameters: {"email"=>"test@qwe.qwe", "phone"=>"8399184711", "name"=>"test", "password"=>"[FILTERED]", "type"=>"Customer", "user"=>{"name"=>"test", "email"=>"test@qwe.qwe", "password"=>"[FILTERED]", "phone"=>"8399184711", "type"=>"Customer"}}
+Can't verify CSRF token authenticity.
+  [1m[36mUser Exists? (9.7ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."email" = $1 LIMIT $2[0m  [["email", "test@qwe.qwe"], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:7:in `create'
+  [1m[36mUser Exists? (1.3ms)[0m  [1m[34mSELECT 1 AS one FROM "users" WHERE "users"."phone" = $1 LIMIT $2[0m  [["phone", "8399184711"], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:7:in `create'
+Completed 422 Unprocessable Entity in 1449ms (Views: 0.5ms | ActiveRecord: 86.6ms | Allocations: 12660)
+
+
+  [1m[36mUser Load (5.5ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" DESC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mAddress Load (0.6ms)[0m  [1m[34mSELECT "addresses"."location" FROM "addresses" WHERE "addresses"."users_id" = $1 AND "addresses"."active" = $2 /* loading for inspect */ LIMIT $3[0m  [["users_id", 1], ["active", true], ["LIMIT", 11]]
+  [1m[36mAddress Load (0.3ms)[0m  [1m[34mSELECT "addresses"."location" FROM "addresses" WHERE "addresses"."users_id" = $1 AND "addresses"."active" = $2 ORDER BY "addresses"."id" ASC LIMIT $3[0m  [["users_id", 1], ["active", true], ["LIMIT", 1]]
+  [1m[36mAddress Load (0.4ms)[0m  [1m[34mSELECT "addresses"."location" FROM "addresses" WHERE "addresses"."users_id" = $1 AND "addresses"."active" = $2 ORDER BY "addresses"."id" ASC LIMIT $3[0m  [["users_id", 1], ["active", true], ["LIMIT", 1]]
+  [1m[36mAddress Load (1.8ms)[0m  [1m[34mSELECT "addresses"."location" FROM "addresses" WHERE "addresses"."users_id" = $1 AND "addresses"."active" = $2 ORDER BY "addresses"."id" ASC LIMIT $3[0m  [["users_id", 1], ["active", true], ["LIMIT", 1]]
+  [1m[36mUser Load (0.7ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" DESC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mUser Load (0.8ms)[0m  [1m[34mSELECT "users".* FROM "users" ORDER BY "users"."id" ASC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[36mAddress Load (0.9ms)[0m  [1m[34mSELECT "addresses"."location" FROM "addresses" WHERE "addresses"."users_id" = $1 AND "addresses"."active" = $2 ORDER BY "addresses"."id" ASC LIMIT $3[0m  [["users_id", 1], ["active", true], ["LIMIT", 1]]
+  [1m[36mAddress Load (0.9ms)[0m  [1m[34mSELECT "addresses"."location" FROM "addresses" WHERE "addresses"."users_id" = $1 AND "addresses"."active" = $2 ORDER BY "addresses"."id" ASC LIMIT $3[0m  [["users_id", 1], ["active", true], ["LIMIT", 1]]
+  [1m[36mAddress Load (11.5ms)[0m  [1m[34mSELECT "addresses"."location" FROM "addresses" WHERE "addresses"."users_id" = $1 AND "addresses"."active" = $2 ORDER BY "addresses"."id" ASC LIMIT $3[0m  [["users_id", 1], ["active", true], ["LIMIT", 1]]
+  [1m[36mShop Load (3.2ms)[0m  [1m[34mSELECT "shops".* FROM "shops" WHERE (location > -1 || location < 5) /* loading for inspect */ LIMIT $1[0m  [["LIMIT", 11]]
+  [1m[36mAddress Load (0.3ms)[0m  [1m[34mSELECT "addresses"."location" FROM "addresses" WHERE "addresses"."users_id" = $1 AND "addresses"."active" = $2 ORDER BY "addresses"."id" ASC LIMIT $3[0m  [["users_id", 1], ["active", true], ["LIMIT", 1]]
+  [1m[36mShop Load (18.8ms)[0m  [1m[34mSELECT "shops".* FROM "shops" WHERE (location > -1 || location < 5) /* loading for inspect */ LIMIT $1[0m  [["LIMIT", 11]]
+  [1m[36mAddress Load (0.4ms)[0m  [1m[34mSELECT "addresses"."location" FROM "addresses" WHERE "addresses"."users_id" = $1 AND "addresses"."active" = $2 ORDER BY "addresses"."id" ASC LIMIT $3[0m  [["users_id", 1], ["active", true], ["LIMIT", 1]]
+  [1m[36mShop Load (2.2ms)[0m  [1m[34mSELECT "shops".* FROM "shops" WHERE (location > '-1' || location < '5') /* loading for inspect */ LIMIT $1[0m  [["LIMIT", 11]]
+  [1m[36mAddress Load (1.1ms)[0m  [1m[34mSELECT "addresses"."location" FROM "addresses" WHERE "addresses"."users_id" = $1 AND "addresses"."active" = $2 ORDER BY "addresses"."id" ASC LIMIT $3[0m  [["users_id", 1], ["active", true], ["LIMIT", 1]]
+  [1m[36mShop Load (1.6ms)[0m  [1m[34mSELECT "shops".* FROM "shops" WHERE (location = ) /* loading for inspect */ LIMIT $1[0m  [["LIMIT", 11]]
+  [1m[36mAddress Load (1.1ms)[0m  [1m[34mSELECT "addresses"."location" FROM "addresses" WHERE "addresses"."users_id" = $1 AND "addresses"."active" = $2 ORDER BY "addresses"."id" ASC LIMIT $3[0m  [["users_id", 1], ["active", true], ["LIMIT", 1]]
+  [1m[36mShop Load (24.1ms)[0m  [1m[34mSELECT "shops".* FROM "shops" WHERE (location = '5') /* loading for inspect */ LIMIT $1[0m  [["LIMIT", 11]]
+Started GET "/users/1/get_nearby_shops" for ::1 at 2021-05-29 14:26:29 +0530
+  [1m[35m (2.1ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by UsersController#get_nearby_shops as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (3.1ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:30:in `set_user'
+Completed 500 Internal Server Error in 267ms (ActiveRecord: 17.7ms | Allocations: 15021)
+
+
+  
+NameError (undefined local variable or method `user' for #<UsersController:0x007fb93ecb8988>
+Did you mean?  @user):
+  
+app/controllers/users_controller.rb:19:in `get_nearby_shops'
+Started GET "/users/1/get_nearby_shops" for ::1 at 2021-05-29 14:26:40 +0530
+Processing by UsersController#get_nearby_shops as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mUser Load (4.0ms)[0m  [1m[34mSELECT "users".* FROM "users" WHERE "users"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/users_controller.rb:30:in `set_user'
+  [1m[36mAddress Load (29.2ms)[0m  [1m[34mSELECT "addresses"."location" FROM "addresses" WHERE "addresses"."users_id" = $1 AND "addresses"."active" = $2 ORDER BY "addresses"."id" ASC LIMIT $3[0m  [["users_id", 1], ["active", true], ["LIMIT", 1]]
+  ↳ app/services/fetch_nearby_shop_service.rb:23:in `get_user_location'
+  [1m[36mShop Load (6.9ms)[0m  [1m[34mSELECT "shops".* FROM "shops" WHERE (location = '5')[0m
+  ↳ app/controllers/users_controller.rb:20:in `get_nearby_shops'
+Completed 200 OK in 632ms (Views: 32.9ms | ActiveRecord: 232.2ms | Allocations: 20055)
+
+
+  [1m[36mShop Load (0.4ms)[0m  [1m[34mSELECT "shops".* FROM "shops" ORDER BY "shops"."id" DESC LIMIT $1[0m  [["LIMIT", 1]]
+  [1m[35m (5.0ms)[0m  [1m[34mselect items.product_category, items.price, shop_items.quantity, 
+    shop_items.id from items inner join shop_items on items.id = shop_items.items_id 
+    where shop_items.shops_id = 1[0m
+  [1m[35m (0.7ms)[0m  [1m[34mselect items.product_category, items.price, shop_items.quantity, 
+    shop_items.id from items inner join shop_items on items.id = shop_items.items_id 
+    where shop_items.shops_id = 1[0m
+Started GET "/shops/1/get_item_list" for ::1 at 2021-05-29 14:42:24 +0530
+  
+ActionController::RoutingError (No route matches [GET] "/shops/1/get_item_list"):
+  
+Started GET "/shops/1/get_item_list" for ::1 at 2021-05-29 14:43:04 +0530
+  [1m[35m (7.2ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by ShopsController#get_item_list as */*
+  Parameters: {"id"=>"1"}
+Completed 500 Internal Server Error in 170ms (ActiveRecord: 0.0ms | Allocations: 2272)
+
+
+  
+NoMethodError (undefined method `id' for nil:NilClass):
+  
+app/queries/get_shop_item_list.rb:5:in `perform'
+app/services/fetch_shop_items.rb:8:in `get_items'
+app/controllers/shops_controller.rb:5:in `get_item_list'
+Started GET "/shops/1/get_item_list" for ::1 at 2021-05-29 14:43:48 +0530
+Processing by ShopsController#get_item_list as */*
+  Parameters: {"id"=>"1"}
+  [1m[36mShop Load (1.7ms)[0m  [1m[34mSELECT "shops".* FROM "shops" WHERE "shops"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/controllers/shops_controller.rb:11:in `set_shop'
+  [1m[35m (25.3ms)[0m  [1m[34mselect items.product_category, items.price, shop_items.quantity, 
+    shop_items.id from items inner join shop_items on items.id = shop_items.items_id 
+    where shop_items.shops_id = 1[0m
+  ↳ app/queries/get_shop_item_list.rb:6:in `perform'
+Completed 200 OK in 488ms (Views: 1.1ms | ActiveRecord: 359.3ms | Allocations: 7186)
+
+
+Started POST "/cart/add_to_cart" for ::1 at 2021-05-29 14:50:14 +0530
+  
+ActionController::RoutingError (No route matches [POST] "/cart/add_to_cart"):
+  
+Started POST "/carts/add_to_cart" for ::1 at 2021-05-29 14:52:14 +0530
+Processing by CartsController#add_to_cart as */*
+  Parameters: {"user_id"=>1, "shop_id"=>1, "cart_items"=>[{"shop_items_id"=>1, "quantity"=>1}, {"shop_items_id"=>2, "quantity"=>2}], "cart"=>{}}
+Can't verify CSRF token authenticity.
+Completed 400 Bad Request in 2ms (ActiveRecord: 131.2ms | Allocations: 581)
+
+
+  
+ActionController::ParameterMissing (param is missing or the value is empty: cart):
+  
+app/controllers/carts_controller.rb:11:in `cart_params'
+app/controllers/carts_controller.rb:3:in `add_to_cart'
+Started POST "/carts/add_to_cart" for ::1 at 2021-05-29 14:52:44 +0530
+Processing by CartsController#add_to_cart as */*
+  Parameters: {"user_id"=>1, "shop_id"=>1, "cart_items"=>[{"shop_items_id"=>1, "quantity"=>1}, {"shop_items_id"=>2, "quantity"=>2}], "cart"=>{}}
+Can't verify CSRF token authenticity.
+[31mUnpermitted parameters: :user_id, :cart[0m
+[31mUnpermitted parameters: :user_id, :cart[0m
+Completed 200 OK in 8ms (Views: 1.7ms | ActiveRecord: 50.5ms | Allocations: 762)
+
+
+Started POST "/carts/add_to_cart" for ::1 at 2021-05-29 14:52:57 +0530
+Processing by CartsController#add_to_cart as */*
+  Parameters: {"users_id"=>1, "shop_id"=>1, "cart_items"=>[{"shop_items_id"=>1, "quantity"=>1}, {"shop_items_id"=>2, "quantity"=>2}], "cart"=>{"users_id"=>1}}
+Can't verify CSRF token authenticity.
+[31mUnpermitted parameter: :cart[0m
+[31mUnpermitted parameter: :cart[0m
+Completed 200 OK in 4ms (Views: 0.2ms | ActiveRecord: 0.0ms | Allocations: 615)
+
+
+Started POST "/carts/add_to_cart" for ::1 at 2021-05-29 15:03:55 +0530
+Processing by CartsController#add_to_cart as */*
+  Parameters: {"users_id"=>1, "shop_id"=>1, "cart_items"=>[{"shop_items_id"=>1, "quantity"=>1}, {"shop_items_id"=>2, "quantity"=>2}], "cart"=>{"users_id"=>1}}
+Can't verify CSRF token authenticity.
+[31mUnpermitted parameter: :cart[0m
+[31mUnpermitted parameter: :cart[0m
+  [1m[36mShop Load (7.3ms)[0m  [1m[34mSELECT "shops".* FROM "shops" WHERE "shops"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/services/create_cart_service.rb:35:in `get_cart_items'
+  [1m[35m (8.1ms)[0m  [1m[34mselect items.product_category, items.price, shop_items.quantity, 
+    shop_items.id from items inner join shop_items on items.id = shop_items.items_id 
+    where shop_items.shops_id = 1[0m
+  ↳ app/queries/get_shop_item_list.rb:6:in `perform'
+Completed 500 Internal Server Error in 244ms (ActiveRecord: 770.4ms | Allocations: 7439)
+
+
+  
+NoMethodError (undefined method `id' for #<Hash:0x00007fa3afcc0cb8>):
+  
+app/services/create_cart_service.rb:36:in `block in get_cart_items'
+app/services/create_cart_service.rb:36:in `select'
+app/services/create_cart_service.rb:36:in `get_cart_items'
+app/services/create_cart_service.rb:30:in `calculate_total_cart_price'
+app/services/create_cart_service.rb:25:in `cart_params'
+app/services/create_cart_service.rb:14:in `cart_creation'
+app/services/create_cart_service.rb:8:in `create_cart'
+app/controllers/carts_controller.rb:4:in `add_to_cart'
+Started POST "/carts/add_to_cart" for ::1 at 2021-05-29 15:04:33 +0530
+Processing by CartsController#add_to_cart as */*
+  Parameters: {"users_id"=>1, "shop_id"=>1, "cart_items"=>[{"shop_items_id"=>1, "quantity"=>1}, {"shop_items_id"=>2, "quantity"=>2}], "cart"=>{"users_id"=>1}}
+Can't verify CSRF token authenticity.
+[31mUnpermitted parameter: :cart[0m
+[31mUnpermitted parameter: :cart[0m
+  [1m[36mShop Load (7.0ms)[0m  [1m[34mSELECT "shops".* FROM "shops" WHERE "shops"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/services/create_cart_service.rb:35:in `get_cart_items'
+  [1m[35m (1.7ms)[0m  [1m[34mselect items.product_category, items.price, shop_items.quantity, 
+    shop_items.id from items inner join shop_items on items.id = shop_items.items_id 
+    where shop_items.shops_id = 1[0m
+  ↳ app/queries/get_shop_item_list.rb:6:in `perform'
+Completed 500 Internal Server Error in 232ms (ActiveRecord: 255.3ms | Allocations: 8950)
+
+
+  
+ActiveModel::UnknownAttributeError (unknown attribute 'shop_id' for Cart.):
+  
+app/services/create_cart_service.rb:14:in `cart_creation'
+app/services/create_cart_service.rb:8:in `create_cart'
+app/controllers/carts_controller.rb:4:in `add_to_cart'
+Started POST "/carts/add_to_cart" for ::1 at 2021-05-29 15:04:47 +0530
+Processing by CartsController#add_to_cart as */*
+  Parameters: {"users_id"=>1, "shop_id"=>1, "cart_items"=>[{"shop_items_id"=>1, "quantity"=>1}, {"shop_items_id"=>2, "quantity"=>2}], "cart"=>{"users_id"=>1}}
+Can't verify CSRF token authenticity.
+[31mUnpermitted parameter: :cart[0m
+[31mUnpermitted parameter: :cart[0m
+  [1m[36mShop Load (2.2ms)[0m  [1m[34mSELECT "shops".* FROM "shops" WHERE "shops"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ (byebug):1:in `get_cart_items'
+  [1m[35m (6.9ms)[0m  [1m[34mselect items.product_category, items.price, shop_items.quantity, 
+    shop_items.id from items inner join shop_items on items.id = shop_items.items_id 
+    where shop_items.shops_id = 1[0m
+  ↳ app/queries/get_shop_item_list.rb:6:in `perform'
+  [1m[35m (58.1ms)[0m  [1m[34mselect items.product_category, items.price, shop_items.quantity, 
+    shop_items.id from items inner join shop_items on items.id = shop_items.items_id 
+    where shop_items.shops_id = 1[0m
+  ↳ app/queries/get_shop_item_list.rb:6:in `perform'
+  [1m[35m (2.8ms)[0m  [1m[34mselect items.product_category, items.price, shop_items.quantity, 
+    shop_items.id from items inner join shop_items on items.id = shop_items.items_id 
+    where shop_items.shops_id = 1[0m
+  ↳ app/queries/get_shop_item_list.rb:6:in `perform'
+  [1m[35m (200.0ms)[0m  [1m[34mselect items.product_category, items.price, shop_items.quantity, 
+    shop_items.id from items inner join shop_items on items.id = shop_items.items_id 
+    where shop_items.shops_id = 1[0m
+  ↳ app/queries/get_shop_item_list.rb:6:in `perform'
+  [1m[35m (1.4ms)[0m  [1m[34mselect items.product_category, items.price, shop_items.quantity, 
+    shop_items.id from items inner join shop_items on items.id = shop_items.items_id 
+    where shop_items.shops_id = 1[0m
+  ↳ app/queries/get_shop_item_list.rb:6:in `perform'
+  [1m[36mCACHE Shop Load (0.1ms)[0m  [1m[34mSELECT "shops".* FROM "shops" WHERE "shops"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/services/create_cart_service.rb:36:in `get_cart_items'
+  [1m[35m (75.9ms)[0m  [1m[34mselect items.product_category, items.price, shop_items.quantity, 
+    shop_items.id from items inner join shop_items on items.id = shop_items.items_id 
+    where shop_items.shops_id = 1[0m
+  ↳ app/queries/get_shop_item_list.rb:6:in `perform'
+  [1m[35m (18.6ms)[0m  [1m[34mselect items.product_category, items.price, shop_items.quantity, 
+    shop_items.id from items inner join shop_items on items.id = shop_items.items_id 
+    where shop_items.shops_id = 1[0m
+  ↳ app/queries/get_shop_item_list.rb:6:in `perform'
+  [1m[36mCACHE Shop Load (0.0ms)[0m  [1m[34mSELECT "shops".* FROM "shops" WHERE "shops"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/services/create_cart_service.rb:36:in `get_cart_items'
+  [1m[35m (93.8ms)[0m  [1m[34mselect items.product_category, items.price, shop_items.quantity, 
+    shop_items.id from items inner join shop_items on items.id = shop_items.items_id 
+    where shop_items.shops_id = 1[0m
+  ↳ app/queries/get_shop_item_list.rb:6:in `perform'
+Completed 500 Internal Server Error in 178604ms (ActiveRecord: 668.8ms | Allocations: 265697)
+
+
+  
+ActiveModel::UnknownAttributeError (unknown attribute 'shop_id' for Cart.):
+  
+app/services/create_cart_service.rb:14:in `cart_creation'
+app/services/create_cart_service.rb:8:in `create_cart'
+app/controllers/carts_controller.rb:4:in `add_to_cart'
+Started POST "/carts/add_to_cart" for ::1 at 2021-05-29 15:11:27 +0530
+  [1m[35m (1.9ms)[0m  [1m[34mSELECT "schema_migrations"."version" FROM "schema_migrations" ORDER BY "schema_migrations"."version" ASC[0m
+Processing by CartsController#add_to_cart as */*
+  Parameters: {"users_id"=>1, "shop_id"=>1, "cart_items"=>[{"shop_items_id"=>1, "quantity"=>1}, {"shop_items_id"=>2, "quantity"=>2}], "cart"=>{"users_id"=>1}}
+Can't verify CSRF token authenticity.
+[31mUnpermitted parameter: :cart[0m
+[31mUnpermitted parameter: :cart[0m
+  [1m[36mShop Load (1.5ms)[0m  [1m[34mSELECT "shops".* FROM "shops" WHERE "shops"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/services/create_cart_service.rb:41:in `shop_cart_items_list'
+  [1m[35m (6.8ms)[0m  [1m[34mselect items.product_category, items.price, shop_items.quantity, 
+    shop_items.id from items inner join shop_items on items.id = shop_items.items_id 
+    where shop_items.shops_id = 1[0m
+  ↳ app/queries/get_shop_item_list.rb:6:in `perform'
+  [1m[36mCACHE Shop Load (0.0ms)[0m  [1m[34mSELECT "shops".* FROM "shops" WHERE "shops"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/services/create_cart_service.rb:41:in `shop_cart_items_list'
+  [1m[35m (6.0ms)[0m  [1m[34mselect items.product_category, items.price, shop_items.quantity, 
+    shop_items.id from items inner join shop_items on items.id = shop_items.items_id 
+    where shop_items.shops_id = 1[0m
+  ↳ app/queries/get_shop_item_list.rb:6:in `perform'
+Completed 500 Internal Server Error in 8310ms (ActiveRecord: 32.7ms | Allocations: 47219)
+
+
+  
+TypeError (no implicit conversion of Symbol into Integer):
+  
+app/services/create_cart_service.rb:34:in `block in calculate_total_cart_price'
+app/services/create_cart_service.rb:32:in `each'
+app/services/create_cart_service.rb:32:in `calculate_total_cart_price'
+app/services/create_cart_service.rb:25:in `cart_params'
+app/services/create_cart_service.rb:14:in `cart_creation'
+app/services/create_cart_service.rb:8:in `create_cart'
+app/controllers/carts_controller.rb:4:in `add_to_cart'
+Started POST "/carts/add_to_cart" for ::1 at 2021-05-29 15:12:11 +0530
+Processing by CartsController#add_to_cart as */*
+  Parameters: {"users_id"=>1, "shop_id"=>1, "cart_items"=>[{"shop_items_id"=>1, "quantity"=>1}, {"shop_items_id"=>2, "quantity"=>2}], "cart"=>{"users_id"=>1}}
+Can't verify CSRF token authenticity.
+[31mUnpermitted parameter: :cart[0m
+[31mUnpermitted parameter: :cart[0m
+  [1m[36mShop Load (35.2ms)[0m  [1m[34mSELECT "shops".* FROM "shops" WHERE "shops"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/services/create_cart_service.rb:42:in `shop_cart_items_list'
+  [1m[35m (73.0ms)[0m  [1m[34mselect items.product_category, items.price, shop_items.quantity, 
+    shop_items.id from items inner join shop_items on items.id = shop_items.items_id 
+    where shop_items.shops_id = 1[0m
+  ↳ app/queries/get_shop_item_list.rb:6:in `perform'
+Completed 500 Internal Server Error in 12792ms (ActiveRecord: 238.3ms | Allocations: 662873)
+
+
+  
+TypeError (no implicit conversion of Symbol into Integer):
+  
+app/services/create_cart_service.rb:35:in `block in calculate_total_cart_price'
+app/services/create_cart_service.rb:33:in `each'
+app/services/create_cart_service.rb:33:in `calculate_total_cart_price'
+app/services/create_cart_service.rb:25:in `cart_params'
+app/services/create_cart_service.rb:14:in `cart_creation'
+app/services/create_cart_service.rb:8:in `create_cart'
+app/controllers/carts_controller.rb:4:in `add_to_cart'
+Started POST "/carts/add_to_cart" for ::1 at 2021-05-29 15:12:31 +0530
+Processing by CartsController#add_to_cart as */*
+  Parameters: {"users_id"=>1, "shop_id"=>1, "cart_items"=>[{"shop_items_id"=>1, "quantity"=>1}, {"shop_items_id"=>2, "quantity"=>2}], "cart"=>{"users_id"=>1}}
+Can't verify CSRF token authenticity.
+[31mUnpermitted parameter: :cart[0m
+[31mUnpermitted parameter: :cart[0m
+  [1m[36mShop Load (2.3ms)[0m  [1m[34mSELECT "shops".* FROM "shops" WHERE "shops"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/services/create_cart_service.rb:42:in `shop_cart_items_list'
+  [1m[35m (3.9ms)[0m  [1m[34mselect items.product_category, items.price, shop_items.quantity, 
+    shop_items.id from items inner join shop_items on items.id = shop_items.items_id 
+    where shop_items.shops_id = 1[0m
+  ↳ app/queries/get_shop_item_list.rb:6:in `perform'
+Completed 500 Internal Server Error in 120688ms (ActiveRecord: 6.2ms | Allocations: 20191)
+
+
+  
+TypeError (no implicit conversion of Symbol into Integer):
+  
+app/services/create_cart_service.rb:35:in `block in calculate_total_cart_price'
+app/services/create_cart_service.rb:33:in `each'
+app/services/create_cart_service.rb:33:in `calculate_total_cart_price'
+app/services/create_cart_service.rb:25:in `cart_params'
+app/services/create_cart_service.rb:14:in `cart_creation'
+app/services/create_cart_service.rb:8:in `create_cart'
+app/controllers/carts_controller.rb:4:in `add_to_cart'
+Started POST "/carts/add_to_cart" for ::1 at 2021-05-29 15:14:43 +0530
+Processing by CartsController#add_to_cart as */*
+  Parameters: {"users_id"=>1, "shop_id"=>1, "cart_items"=>[{"shop_items_id"=>1, "quantity"=>1}, {"shop_items_id"=>2, "quantity"=>2}], "cart"=>{"users_id"=>1}}
+Can't verify CSRF token authenticity.
+[31mUnpermitted parameter: :cart[0m
+[31mUnpermitted parameter: :cart[0m
+  [1m[36mShop Load (20.6ms)[0m  [1m[34mSELECT "shops".* FROM "shops" WHERE "shops"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/services/create_cart_service.rb:42:in `shop_cart_items_list'
+  [1m[35m (12.9ms)[0m  [1m[34mselect items.product_category, items.price, shop_items.quantity, 
+    shop_items.id from items inner join shop_items on items.id = shop_items.items_id 
+    where shop_items.shops_id = 1[0m
+  ↳ app/queries/get_shop_item_list.rb:6:in `perform'
+Completed 500 Internal Server Error in 3801ms (ActiveRecord: 124.5ms | Allocations: 12172)
+
+
+  
+NoMethodError (undefined method `[]' for nil:NilClass):
+  
+app/services/create_cart_service.rb:35:in `block in calculate_total_cart_price'
+app/services/create_cart_service.rb:33:in `each'
+app/services/create_cart_service.rb:33:in `calculate_total_cart_price'
+app/services/create_cart_service.rb:25:in `cart_params'
+app/services/create_cart_service.rb:14:in `cart_creation'
+app/services/create_cart_service.rb:8:in `create_cart'
+app/controllers/carts_controller.rb:4:in `add_to_cart'
+Started POST "/carts/add_to_cart" for ::1 at 2021-05-29 15:15:03 +0530
+Processing by CartsController#add_to_cart as */*
+  Parameters: {"users_id"=>1, "shop_id"=>1, "cart_items"=>[{"shop_items_id"=>1, "quantity"=>1}, {"shop_items_id"=>2, "quantity"=>2}], "cart"=>{"users_id"=>1}}
+Can't verify CSRF token authenticity.
+[31mUnpermitted parameter: :cart[0m
+[31mUnpermitted parameter: :cart[0m
+  [1m[36mShop Load (4.0ms)[0m  [1m[34mSELECT "shops".* FROM "shops" WHERE "shops"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/services/create_cart_service.rb:43:in `shop_cart_items_list'
+  [1m[35m (2.8ms)[0m  [1m[34mselect items.product_category, items.price, shop_items.quantity, 
+    shop_items.id from items inner join shop_items on items.id = shop_items.items_id 
+    where shop_items.shops_id = 1[0m
+  ↳ app/queries/get_shop_item_list.rb:6:in `perform'
+Completed 500 Internal Server Error in 35227ms (ActiveRecord: 49.0ms | Allocations: 20046)
+
+
+  
+NoMethodError (undefined method `[]' for nil:NilClass):
+  
+app/services/create_cart_service.rb:36:in `block in calculate_total_cart_price'
+app/services/create_cart_service.rb:33:in `each'
+app/services/create_cart_service.rb:33:in `calculate_total_cart_price'
+app/services/create_cart_service.rb:25:in `cart_params'
+app/services/create_cart_service.rb:14:in `cart_creation'
+app/services/create_cart_service.rb:8:in `create_cart'
+app/controllers/carts_controller.rb:4:in `add_to_cart'
+Started POST "/carts/add_to_cart" for ::1 at 2021-05-29 15:15:53 +0530
+Processing by CartsController#add_to_cart as */*
+  Parameters: {"users_id"=>1, "shop_id"=>1, "cart_items"=>[{"shop_items_id"=>1, "quantity"=>1}, {"shop_items_id"=>2, "quantity"=>2}], "cart"=>{"users_id"=>1}}
+Can't verify CSRF token authenticity.
+[31mUnpermitted parameter: :cart[0m
+[31mUnpermitted parameter: :cart[0m
+  [1m[36mShop Load (21.5ms)[0m  [1m[34mSELECT "shops".* FROM "shops" WHERE "shops"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/services/create_cart_service.rb:41:in `shop_cart_items_list'
+  [1m[35m (3.0ms)[0m  [1m[34mselect items.product_category, items.price, shop_items.quantity, 
+    shop_items.id from items inner join shop_items on items.id = shop_items.items_id 
+    where shop_items.shops_id = 1[0m
+  ↳ app/queries/get_shop_item_list.rb:6:in `perform'
+Completed 500 Internal Server Error in 16736ms (ActiveRecord: 128.7ms | Allocations: 14614)
+
+
+  
+TypeError (nil can't be coerced into Integer):
+  
+app/services/create_cart_service.rb:35:in `*'
+app/services/create_cart_service.rb:35:in `block in calculate_total_cart_price'
+app/services/create_cart_service.rb:32:in `each'
+app/services/create_cart_service.rb:32:in `calculate_total_cart_price'
+app/services/create_cart_service.rb:25:in `cart_params'
+app/services/create_cart_service.rb:14:in `cart_creation'
+app/services/create_cart_service.rb:8:in `create_cart'
+app/controllers/carts_controller.rb:4:in `add_to_cart'
+Started POST "/carts/add_to_cart" for ::1 at 2021-05-29 15:16:30 +0530
+Processing by CartsController#add_to_cart as */*
+  Parameters: {"users_id"=>1, "shop_id"=>1, "cart_items"=>[{"shop_items_id"=>1, "quantity"=>1}, {"shop_items_id"=>2, "quantity"=>2}], "cart"=>{"users_id"=>1}}
+Can't verify CSRF token authenticity.
+[31mUnpermitted parameter: :cart[0m
+[31mUnpermitted parameter: :cart[0m
+  [1m[36mShop Load (1.4ms)[0m  [1m[34mSELECT "shops".* FROM "shops" WHERE "shops"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/services/create_cart_service.rb:42:in `shop_cart_items_list'
+  [1m[35m (3.7ms)[0m  [1m[34mselect items.product_category, items.price, shop_items.quantity, 
+    shop_items.id from items inner join shop_items on items.id = shop_items.items_id 
+    where shop_items.shops_id = 1[0m
+  ↳ app/queries/get_shop_item_list.rb:6:in `perform'
+Completed 500 Internal Server Error in 4304ms (ActiveRecord: 18.9ms | Allocations: 16716)
+
+
+  
+NoMethodError (undefined method `[]' for nil:NilClass):
+  
+app/services/create_cart_service.rb:34:in `block (2 levels) in calculate_total_cart_price'
+app/services/create_cart_service.rb:34:in `select'
+app/services/create_cart_service.rb:34:in `block in calculate_total_cart_price'
+app/services/create_cart_service.rb:32:in `each'
+app/services/create_cart_service.rb:32:in `calculate_total_cart_price'
+app/services/create_cart_service.rb:25:in `cart_params'
+app/services/create_cart_service.rb:14:in `cart_creation'
+app/services/create_cart_service.rb:8:in `create_cart'
+app/controllers/carts_controller.rb:4:in `add_to_cart'
+Started POST "/carts/add_to_cart" for ::1 at 2021-05-29 15:16:54 +0530
+Processing by CartsController#add_to_cart as */*
+  Parameters: {"users_id"=>1, "shop_id"=>1, "cart_items"=>[{"shop_items_id"=>1, "quantity"=>1}, {"shop_items_id"=>2, "quantity"=>2}], "cart"=>{"users_id"=>1}}
+Can't verify CSRF token authenticity.
+[31mUnpermitted parameter: :cart[0m
+[31mUnpermitted parameter: :cart[0m
+  [1m[36mShop Load (3.5ms)[0m  [1m[34mSELECT "shops".* FROM "shops" WHERE "shops"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/services/create_cart_service.rb:43:in `shop_cart_items_list'
+  [1m[35m (102.3ms)[0m  [1m[34mselect items.product_category, items.price, shop_items.quantity, 
+    shop_items.id from items inner join shop_items on items.id = shop_items.items_id 
+    where shop_items.shops_id = 1[0m
+  ↳ app/queries/get_shop_item_list.rb:6:in `perform'
+Completed 500 Internal Server Error in 1889ms (ActiveRecord: 184.1ms | Allocations: 9964)
+
+
+  
+NoMethodError (undefined method `nil' for #<ActionController::Parameters:0x00007fd6c311d018>
+Did you mean?  nil?):
+  
+app/services/create_cart_service.rb:35:in `block in calculate_total_cart_price'
+app/services/create_cart_service.rb:32:in `each'
+app/services/create_cart_service.rb:32:in `calculate_total_cart_price'
+app/services/create_cart_service.rb:25:in `cart_params'
+app/services/create_cart_service.rb:14:in `cart_creation'
+app/services/create_cart_service.rb:8:in `create_cart'
+app/controllers/carts_controller.rb:4:in `add_to_cart'
+Started POST "/carts/add_to_cart" for ::1 at 2021-05-29 15:17:05 +0530
+Processing by CartsController#add_to_cart as */*
+  Parameters: {"users_id"=>1, "shop_id"=>1, "cart_items"=>[{"shop_items_id"=>1, "quantity"=>1}, {"shop_items_id"=>2, "quantity"=>2}], "cart"=>{"users_id"=>1}}
+Can't verify CSRF token authenticity.
+[31mUnpermitted parameter: :cart[0m
+[31mUnpermitted parameter: :cart[0m
+  [1m[36mShop Load (2.4ms)[0m  [1m[34mSELECT "shops".* FROM "shops" WHERE "shops"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/services/create_cart_service.rb:43:in `shop_cart_items_list'
+  [1m[35m (3.3ms)[0m  [1m[34mselect items.product_category, items.price, shop_items.quantity, 
+    shop_items.id from items inner join shop_items on items.id = shop_items.items_id 
+    where shop_items.shops_id = 1[0m
+  ↳ app/queries/get_shop_item_list.rb:6:in `perform'
+Completed 500 Internal Server Error in 3046ms (ActiveRecord: 149.2ms | Allocations: 16471)
+
+
+  
+NoMethodError (undefined method `[]' for nil:NilClass):
+  
+app/services/create_cart_service.rb:34:in `block (2 levels) in calculate_total_cart_price'
+app/services/create_cart_service.rb:34:in `select'
+app/services/create_cart_service.rb:34:in `block in calculate_total_cart_price'
+app/services/create_cart_service.rb:32:in `each'
+app/services/create_cart_service.rb:32:in `calculate_total_cart_price'
+app/services/create_cart_service.rb:25:in `cart_params'
+app/services/create_cart_service.rb:14:in `cart_creation'
+app/services/create_cart_service.rb:8:in `create_cart'
+app/controllers/carts_controller.rb:4:in `add_to_cart'
+Started POST "/carts/add_to_cart" for ::1 at 2021-05-29 15:17:16 +0530
+Processing by CartsController#add_to_cart as */*
+  Parameters: {"users_id"=>1, "shop_id"=>1, "cart_items"=>[{"shop_items_id"=>1, "quantity"=>1}, {"shop_items_id"=>2, "quantity"=>2}], "cart"=>{"users_id"=>1}}
+Can't verify CSRF token authenticity.
+[31mUnpermitted parameter: :cart[0m
+[31mUnpermitted parameter: :cart[0m
+  [1m[36mShop Load (2.8ms)[0m  [1m[34mSELECT "shops".* FROM "shops" WHERE "shops"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/services/create_cart_service.rb:43:in `shop_cart_items_list'
+  [1m[35m (228.7ms)[0m  [1m[34mselect items.product_category, items.price, shop_items.quantity, 
+    shop_items.id from items inner join shop_items on items.id = shop_items.items_id 
+    where shop_items.shops_id = 1[0m
+  ↳ app/queries/get_shop_item_list.rb:6:in `perform'
+Completed 500 Internal Server Error in 64589ms (ActiveRecord: 231.5ms | Allocations: 52204)
+
+
+  
+NoMethodError (undefined method `[]' for nil:NilClass):
+  
+app/services/create_cart_service.rb:34:in `block (2 levels) in calculate_total_cart_price'
+app/services/create_cart_service.rb:34:in `select'
+app/services/create_cart_service.rb:34:in `block in calculate_total_cart_price'
+app/services/create_cart_service.rb:32:in `each'
+app/services/create_cart_service.rb:32:in `calculate_total_cart_price'
+app/services/create_cart_service.rb:25:in `cart_params'
+app/services/create_cart_service.rb:14:in `cart_creation'
+app/services/create_cart_service.rb:8:in `create_cart'
+app/controllers/carts_controller.rb:4:in `add_to_cart'
+Started POST "/carts/add_to_cart" for ::1 at 2021-05-29 15:18:49 +0530
+Processing by CartsController#add_to_cart as */*
+  Parameters: {"users_id"=>1, "shop_id"=>1, "cart_items"=>[{"shop_items_id"=>1, "quantity"=>1}, {"shop_items_id"=>2, "quantity"=>2}], "cart"=>{"users_id"=>1}}
+Can't verify CSRF token authenticity.
+[31mUnpermitted parameter: :cart[0m
+[31mUnpermitted parameter: :cart[0m
+  [1m[36mShop Load (12.1ms)[0m  [1m[34mSELECT "shops".* FROM "shops" WHERE "shops"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/services/create_cart_service.rb:42:in `shop_cart_items_list'
+  [1m[35m (1.9ms)[0m  [1m[34mselect items.product_category, items.price, shop_items.quantity, 
+    shop_items.id from items inner join shop_items on items.id = shop_items.items_id 
+    where shop_items.shops_id = 1[0m
+  ↳ app/queries/get_shop_item_list.rb:6:in `perform'
+Completed 500 Internal Server Error in 14064ms (ActiveRecord: 68.7ms | Allocations: 26839)
+
+
+  
+NoMethodError (undefined method `[]' for nil:NilClass):
+  
+app/services/create_cart_service.rb:34:in `block (2 levels) in calculate_total_cart_price'
+app/services/create_cart_service.rb:34:in `select'
+app/services/create_cart_service.rb:34:in `block in calculate_total_cart_price'
+app/services/create_cart_service.rb:32:in `each'
+app/services/create_cart_service.rb:32:in `calculate_total_cart_price'
+app/services/create_cart_service.rb:25:in `cart_params'
+app/services/create_cart_service.rb:14:in `cart_creation'
+app/services/create_cart_service.rb:8:in `create_cart'
+app/controllers/carts_controller.rb:4:in `add_to_cart'
+Started POST "/carts/add_to_cart" for ::1 at 2021-05-29 15:19:10 +0530
+Processing by CartsController#add_to_cart as */*
+  Parameters: {"users_id"=>1, "shop_id"=>1, "cart_items"=>[{"shop_items_id"=>1, "quantity"=>1}, {"shop_items_id"=>2, "quantity"=>2}], "cart"=>{"users_id"=>1}}
+Can't verify CSRF token authenticity.
+[31mUnpermitted parameter: :cart[0m
+[31mUnpermitted parameter: :cart[0m
+  [1m[36mShop Load (5.8ms)[0m  [1m[34mSELECT "shops".* FROM "shops" WHERE "shops"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/services/create_cart_service.rb:42:in `shop_cart_items_list'
+  [1m[35m (175.6ms)[0m  [1m[34mselect items.product_category, items.price, shop_items.quantity, 
+    shop_items.id from items inner join shop_items on items.id = shop_items.items_id 
+    where shop_items.shops_id = 1[0m
+  ↳ app/queries/get_shop_item_list.rb:6:in `perform'
+Completed 500 Internal Server Error in 30091ms (ActiveRecord: 181.4ms | Allocations: 21880)
+
+
+  
+NoMethodError (undefined method `[]' for nil:NilClass):
+  
+app/services/create_cart_service.rb:34:in `block (2 levels) in calculate_total_cart_price'
+app/services/create_cart_service.rb:34:in `select'
+app/services/create_cart_service.rb:34:in `block in calculate_total_cart_price'
+app/services/create_cart_service.rb:32:in `each'
+app/services/create_cart_service.rb:32:in `calculate_total_cart_price'
+app/services/create_cart_service.rb:25:in `cart_params'
+app/services/create_cart_service.rb:14:in `cart_creation'
+app/services/create_cart_service.rb:8:in `create_cart'
+app/controllers/carts_controller.rb:4:in `add_to_cart'
+Started POST "/carts/add_to_cart" for ::1 at 2021-05-29 15:19:57 +0530
+Processing by CartsController#add_to_cart as */*
+  Parameters: {"users_id"=>1, "shop_id"=>1, "cart_items"=>[{"shop_items_id"=>1, "quantity"=>1}, {"shop_items_id"=>2, "quantity"=>2}], "cart"=>{"users_id"=>1}}
+Can't verify CSRF token authenticity.
+[31mUnpermitted parameter: :cart[0m
+[31mUnpermitted parameter: :cart[0m
+  [1m[36mShop Load (1.6ms)[0m  [1m[34mSELECT "shops".* FROM "shops" WHERE "shops"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/services/create_cart_service.rb:42:in `shop_cart_items_list'
+  [1m[35m (1.3ms)[0m  [1m[34mselect items.product_category, items.price, shop_items.quantity, 
+    shop_items.id from items inner join shop_items on items.id = shop_items.items_id 
+    where shop_items.shops_id = 1[0m
+  ↳ app/queries/get_shop_item_list.rb:6:in `perform'
+Completed 500 Internal Server Error in 11954ms (ActiveRecord: 29.6ms | Allocations: 21828)
+
+
+  
+NoMethodError (undefined method `[]' for nil:NilClass):
+  
+app/services/create_cart_service.rb:34:in `block (2 levels) in calculate_total_cart_price'
+app/services/create_cart_service.rb:34:in `select'
+app/services/create_cart_service.rb:34:in `block in calculate_total_cart_price'
+app/services/create_cart_service.rb:32:in `each'
+app/services/create_cart_service.rb:32:in `calculate_total_cart_price'
+app/services/create_cart_service.rb:25:in `cart_params'
+app/services/create_cart_service.rb:14:in `cart_creation'
+app/services/create_cart_service.rb:8:in `create_cart'
+app/controllers/carts_controller.rb:4:in `add_to_cart'
+Started POST "/carts/add_to_cart" for ::1 at 2021-05-29 15:20:23 +0530
+Processing by CartsController#add_to_cart as */*
+  Parameters: {"users_id"=>1, "shop_id"=>1, "cart_items"=>[{"shop_items_id"=>1, "quantity"=>1}, {"shop_items_id"=>2, "quantity"=>2}], "cart"=>{"users_id"=>1}}
+Can't verify CSRF token authenticity.
+[31mUnpermitted parameter: :cart[0m
+[31mUnpermitted parameter: :cart[0m
+  [1m[36mShop Load (8.3ms)[0m  [1m[34mSELECT "shops".* FROM "shops" WHERE "shops"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/services/create_cart_service.rb:42:in `shop_cart_items_list'
+  [1m[35m (1.9ms)[0m  [1m[34mselect items.product_category, items.price, shop_items.quantity, 
+    shop_items.id from items inner join shop_items on items.id = shop_items.items_id 
+    where shop_items.shops_id = 1[0m
+  ↳ app/queries/get_shop_item_list.rb:6:in `perform'
+Completed 500 Internal Server Error in 1647ms (ActiveRecord: 78.5ms | Allocations: 19720)
+
+
+  
+ActiveModel::UnknownAttributeError (unknown attribute 'shop_id' for Cart.):
+  
+app/services/create_cart_service.rb:14:in `cart_creation'
+app/services/create_cart_service.rb:8:in `create_cart'
+app/controllers/carts_controller.rb:4:in `add_to_cart'
+Started POST "/carts/add_to_cart" for ::1 at 2021-05-29 15:21:05 +0530
+Processing by CartsController#add_to_cart as */*
+  Parameters: {"users_id"=>1, "shops_id"=>1, "cart_items"=>[{"shop_items_id"=>1, "quantity"=>1}, {"shop_items_id"=>2, "quantity"=>2}], "cart"=>{"users_id"=>1, "shops_id"=>1}}
+Can't verify CSRF token authenticity.
+[31mUnpermitted parameter: :cart[0m
+[31mUnpermitted parameter: :cart[0m
+  [1m[36mShop Load (1.2ms)[0m  [1m[34mSELECT "shops".* FROM "shops" WHERE "shops"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/services/create_cart_service.rb:42:in `shop_cart_items_list'
+  [1m[35m (62.9ms)[0m  [1m[34mselect items.product_category, items.price, shop_items.quantity, 
+    shop_items.id from items inner join shop_items on items.id = shop_items.items_id 
+    where shop_items.shops_id = 1[0m
+  ↳ app/queries/get_shop_item_list.rb:6:in `perform'
+  [1m[36mTRANSACTION (10.8ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/services/create_cart_service.rb:14:in `cart_creation'
+  [1m[36mCart Create (110.2ms)[0m  [1m[32mINSERT INTO "carts" ("users_id", "shops_id", "total_price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["users_id", 1], ["shops_id", 1], ["total_price", 100.0], ["created_at", "2021-05-29 09:51:08.586140"], ["updated_at", "2021-05-29 09:51:08.586140"]]
+  ↳ app/services/create_cart_service.rb:14:in `cart_creation'
+  [1m[36mTRANSACTION (6.5ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/services/create_cart_service.rb:14:in `cart_creation'
+Completed 200 OK in 1988ms (Views: 1.6ms | ActiveRecord: 393.1ms | Allocations: 21732)
+
+
+Started POST "/carts/add_to_cart" for ::1 at 2021-05-29 15:23:16 +0530
+Processing by CartsController#add_to_cart as */*
+  Parameters: {"users_id"=>1, "shops_id"=>1, "cart_items"=>[{"shop_items_id"=>1, "quantity"=>1}, {"shop_items_id"=>2, "quantity"=>2}], "cart"=>{"users_id"=>1, "shops_id"=>1}}
+Can't verify CSRF token authenticity.
+[31mUnpermitted parameter: :cart[0m
+[31mUnpermitted parameter: :cart[0m
+  [1m[36mTRANSACTION (28.8ms)[0m  [1m[35mBEGIN[0m
+  ↳ app/services/create_cart_service.rb:47:in `shop_cart_items_list'
+  [1m[36mShop Load (3.1ms)[0m  [1m[34mSELECT "shops".* FROM "shops" WHERE "shops"."id" = $1 LIMIT $2[0m  [["id", 1], ["LIMIT", 1]]
+  ↳ app/services/create_cart_service.rb:47:in `shop_cart_items_list'
+  [1m[35m (5.6ms)[0m  [1m[34mselect items.product_category, items.price, shop_items.quantity, 
+    shop_items.id from items inner join shop_items on items.id = shop_items.items_id 
+    where shop_items.shops_id = 1[0m
+  ↳ app/queries/get_shop_item_list.rb:6:in `perform'
+  [1m[36mCart Create (21.8ms)[0m  [1m[32mINSERT INTO "carts" ("users_id", "shops_id", "total_price", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["users_id", 1], ["shops_id", 1], ["total_price", 100.0], ["created_at", "2021-05-29 09:53:21.073968"], ["updated_at", "2021-05-29 09:53:21.073968"]]
+  ↳ app/services/create_cart_service.rb:17:in `cart_creation'
+  [1m[36mCartItem Create (38.0ms)[0m  [1m[32mINSERT INTO "cart_items" ("carts_id", "shop_items_id", "quantity", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["carts_id", 2], ["shop_items_id", 1], ["quantity", 1], ["created_at", "2021-05-29 09:53:21.134563"], ["updated_at", "2021-05-29 09:53:21.134563"]]
+  ↳ app/services/create_cart_service.rb:22:in `block in create_cart_items'
+  [1m[36mCartItem Create (1.6ms)[0m  [1m[32mINSERT INTO "cart_items" ("carts_id", "shop_items_id", "quantity", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"[0m  [["carts_id", 2], ["shop_items_id", 2], ["quantity", 2], ["created_at", "2021-05-29 09:53:21.176878"], ["updated_at", "2021-05-29 09:53:21.176878"]]
+  ↳ app/services/create_cart_service.rb:22:in `block in create_cart_items'
+  [1m[36mTRANSACTION (2.7ms)[0m  [1m[35mCOMMIT[0m
+  ↳ app/services/create_cart_service.rb:8:in `create_cart'
+Completed 200 OK in 3269ms (Views: 0.4ms | ActiveRecord: 251.4ms | Allocations: 26710)
+
+
